@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#display ip with http
+
+awk '{print $1 " " $9}' apache-access.log
