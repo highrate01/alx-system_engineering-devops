@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#it Creates the file /var/run/myscript.pid containing its PID
+#Displays I hate the kill command when receiving a SIGTERM signal
+#Displays Y U no love me?! when receiving a SIGINT signal
+
+TER='rm /var/run/myscript.pid; exit $?'
+echo $$ > "/var/run/myscript.pid"
