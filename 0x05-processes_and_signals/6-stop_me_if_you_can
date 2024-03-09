@@ -2,9 +2,4 @@
 #Bash script that stops 4-to_infinity_and_beyond process.
 #kill or killall must not be used
 
-if pkill -f "4-to_infinity_and_beyond"
-then
-	echo "Terminated"
-else
-	echo "process 4-to_infinity_and_beyond process is not running."
-fi
+pkill -f "4-to_infinity_and_beyond"
