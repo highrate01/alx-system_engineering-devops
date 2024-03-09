@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#displays a list of current running preocesses
+
+ps aux --forest
