@@ -9,6 +9,6 @@ clean_up_and_exit()
 	exit $?
 }
 trap 'echo "I hate the kill command";clean_up_and_exit' SIGTERM
-trap 'echo "Y U no love me?!";' SIGINT
+trap 'echo "Y U no love me?!"' SIGINT
 trap 'clean_up_and_exit' SIGQUIT
 echo $$ > "/var/run/myscript.pid"
