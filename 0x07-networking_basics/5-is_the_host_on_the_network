@@ -1,3 +1,4 @@
 #!/usr/bin/env
+#Bash script that pings an IP address passed as an argument.
 IP_ADDRESS=$1
-ping -c 5 $IP_ADDRESS
+ping -c 5 "$IP_ADDRESS"
