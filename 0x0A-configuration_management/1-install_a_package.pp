@@ -1,8 +1,8 @@
 #!/usr/bin/puppet
-# Install a package
 
-package {'flask':
-ensure   => '2.1.0',
-provider => 'pip3',
+# Install a package
+package { 'flask':
+  ensure   => '2.1.0',
+  provider => 'pip3',
 }
 
