@@ -1,4 +1,4 @@
-#!/usr/bin/env puppet
+#!/usr/bin/pup
 # Install a package
 
 package {'flask':
