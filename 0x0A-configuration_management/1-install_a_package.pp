@@ -1,4 +1,3 @@
-#!/usr/bin/puppet
 
 # Install a package
 package { 'flask':
