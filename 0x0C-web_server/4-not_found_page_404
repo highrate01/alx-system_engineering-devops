@@ -21,12 +21,18 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 
 
 echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+echo -e "Ceci n'est pas une page" > /var/www/html/404.html
 
-echo -e "\nConfiguring Nginx to redirect /redirect_me..."
+echo -e "\nConfiguring Nginx custom 404 page..."
 echo "server {
     listen 80;
     server_name _;
-    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4\$request_uri;
+    root /var/www/html;
+    error_page 404 /404.html;
+    location = /404.html {
+    internal;
+}
+
 }" | sudo tee -a /etc/nginx/sites-available/default > /dev/null
 sudo service nginx restart
 
