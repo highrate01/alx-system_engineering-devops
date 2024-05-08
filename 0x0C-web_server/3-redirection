@@ -15,7 +15,7 @@ sudo chown -R "$USER":"$USER" /var/www/html
 
 sudo chmod -R 755 /var/www
 
-mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
