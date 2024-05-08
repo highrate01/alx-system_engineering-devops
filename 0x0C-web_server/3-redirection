@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# install ngix listening at port 80
+
+echo -e "Update and install Nginx\n"
+
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
+
+echo -e "\nsetting up"
+
+sudo service nginx start
+
+sudo ufw allow 'Nginx HTTP'
+
+sudo chown -R "$USER":"$USER" /var/www/html
+
+sudo chmod -R 755 /var/www
+
+mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+sudo sed -i '24i\	rewrite^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo service nginx restart
+
+echo -e "\nCompleted" 
