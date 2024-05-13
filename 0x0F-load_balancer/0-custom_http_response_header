@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#configures a brand new Ubuntu machine to
+#the requirements asked in this task
+
+#update packages
+sudo apt-get update
+
+#install nginx automatically
+sudo apt-get install -y nginx
+
+#print out 'Hello World'
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+#redirection
+redirection="server_name _;\n\trewrite ^\/redirect_me https:\/\/twitter.com\/highrate00 permanent;"
+
+sudo sed -i "s/server_name _;/$redirection/" /etc/nginx/sites-enabled/default
+
+#create custome error page
+
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+#response header
+sudo sed -i "server_name _;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+
+#test for syntax error
+sudo nginx -t
+
+#restart nginx
+sudo service nginx restart
