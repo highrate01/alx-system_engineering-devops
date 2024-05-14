@@ -17,7 +17,7 @@ function instal() {
 		echo -e "	${1} is already installed.\n"
 	fi
 }
-#install nginx
+#set up and install nginx
 instal nginx
 
 #allows nginx on firewall
@@ -33,7 +33,6 @@ else
 	sudo chown -R "$USER":"$USER" /var/www
 	sudo chmod -R 755 /var/www
 fi
-
 for dir in /var/www/{html,error}; do
 	if ! [ -d "$dir" ]; then
 		mkdir -p "$dir"
