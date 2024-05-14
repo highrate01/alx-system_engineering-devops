@@ -3,8 +3,8 @@
 #the requirements asked in this task
 
 #update packages
-echo -e "updating packagesi\n"
-function instal() {
+echo -e "updating packages... \n"
+function install() {
 	command -v "$1" &> /dev/null
 
 	#shellcheck disable=SC2181
@@ -18,7 +18,7 @@ function instal() {
 	fi
 }
 #set up and install nginx
-instal nginx
+install nginx
 
 #allows nginx on firewall
 sudo ufw allow 'Nginx HTTP'
