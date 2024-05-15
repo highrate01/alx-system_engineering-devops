@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # a shorter script to debug ngix server listening at 80
-ln -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx restart
-kill -$(pgrep 'nginx' | head -1)"
+sudo ln -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx start
+sudo nginx -s quit
