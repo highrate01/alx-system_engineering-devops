@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# debugs my Ubuntu container’s Nginx installation for not listening on port 80
+
+# removes the initial configuration
+rm /etc/nginx/sites-enabled/default
+
+#creates a new symbolic link that point to the default configuration file
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+#tests nginx configuration
+nginx -t
+
+#restarts configuration
+sudo service nginx restart
