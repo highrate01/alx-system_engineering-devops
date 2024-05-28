@@ -11,16 +11,15 @@ sudo sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
 sudo sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
 
 # give permission to /etc/nginx/sites-enabled
-sudo chmod 644 /etc/nginx/nginx.conf
+chmod 644 /etc/nginx/nginx.conf
 
 # change ownership of nginx server directory to nginx user
-sudo chown nginx:nginx /etc/nginx/ -R
+chown nginx:nginx /etc/nginx/ -R
 
 # check service running at port 8080
-sudo lsof -i :80 | grep LISTEN &> /dev/null
-if [ $? -eq 0 ]; then
-    sudo service apache2 stop
-fi
+for pid in $(pidof apache2); do
+	kill "$pid"
+done
 
 # start nginx
-sudo service nginx start
+sudo -u nginx service nginx start
