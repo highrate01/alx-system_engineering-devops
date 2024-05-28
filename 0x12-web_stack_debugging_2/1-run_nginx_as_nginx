@@ -1,23 +1,33 @@
 #!/usr/bin/env bash
+# configure nginx to run as nginx user
 
-# Create nginx user if it doesn't exist
-if ! id "nginx" >&/dev/null; then
-    useradd -r nginx
+#stop nginx running
+sudo service nginx stop
+
+# change user in config settings
+sudo sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
+
+# configure /etc/nginx/sites-enabled/default to bind nginx at port 8080
+sudo sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
+
+# give permission to /etc/nginx/sites-enabled
+chmod 644 /etc/nginx/nginx.conf
+
+# change ownership of nginx server directory to nginx user
+chown nginx:nginx /etc/nginx/ -R
+
+# check service running at port 8080
+if lsof -Pi :80 -sTCP:LISTEN -t >/dev/null ; then
+    echo "A service is running on port 80. Killing it..."
+    sudo kill "$(lsof -t -i:80)"
 fi
 
-# Update the Nginx configuration
-sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
-sed -i 's/listen \\+\\(::\\)\\?/listen 0.0.0.0:8080;/' /etc/nginx/sites-available/default
+# Start Nginx
+sudo service nginx start
 
-# Ensure the correct permissions
-chown -R nginx:nginx /var/lib/nginx
-chmod -R 755 /var/lib/nginx
-
-# Check and configure firewall rules
-if command -v ufw >/dev/null 2>&1; then
-    ufw allow 8080/tcp
-    ufw reload
+# Check if Nginx is running at port 8080
+if lsof -Pi :8080 -sTCP:LISTEN -t >/dev/null ; then
+    echo "Nginx is running on port 8080"
+else
+    echo "Nginx is not running on port 8080"
 fi
-
-# Restart Nginx
-sudo systemctl restart nginx
