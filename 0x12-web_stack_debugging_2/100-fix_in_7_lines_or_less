@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
+sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
+chmod 644 /etc/nginx/nginx.conf
+chown -R nginx:nginx /etc/nginx/
+sudo kill "$(lsof -t -i:80)"
+sudo -u nginx service nginx restart
