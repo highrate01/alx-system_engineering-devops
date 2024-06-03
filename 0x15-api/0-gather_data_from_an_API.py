@@ -6,18 +6,18 @@ returns information about his/her TODO list progress
 import requests
 import sys
 
+
 if __name__ == '__main__':
     base_url = "https://jsonplaceholder.typicode.com"
 
     employee_id = sys.argv[1]
 
-    employee_url = f"{base_url}/users/{employee_id}"
-    response = requests.get(employee_url)
+    response = requests.get(base_url + "/users/{}".format(employee_id))
     user = response.json()
 
-    params = {"userid": employee_id}
+    params = {"userId": employee_id}
 
-    todos_response = requests.get(f"{base_url}/todos", params=params)
+    todos_response = requests.get(base_url + "/todos", params=params)
 
     todos = todos_response.json()
 
