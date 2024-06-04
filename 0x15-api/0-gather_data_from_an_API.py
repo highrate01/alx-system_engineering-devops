@@ -7,8 +7,10 @@ import re
 import requests
 import sys
 
+base_url = "https://jsonplaceholder.typicode.com"
+
+
 if __name__ == '__main__':
-    base_url = "https://jsonplaceholder.typicode.com"
 
     if len(sys.argv) > 1:
         if re.fullmatch(r'\d+', sys.argv[1]):
