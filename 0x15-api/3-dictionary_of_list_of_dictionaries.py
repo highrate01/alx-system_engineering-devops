@@ -5,31 +5,22 @@ import json
 import requests
 import sys
 
+if __name__ == "__main__":
+    users = requests.get("https://jsonplaceholder.typicode.com/users")
+    users = users.json()
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    todos = todos.json()
+    todoAll = {}
 
-if __name__ == '__main__':
-    url = "https://jsonplaceholder.typicode.com/users"
+    for user in users:
+        taskList = []
+        for task in todos:
+            if task.get('userId') == user.get('id'):
+                taskDict = {"username": user.get('username'),
+                            "task": task.get('title'),
+                            "completed": task.get('completed')}
+                taskList.append(taskDict)
+        todoAll[user.get('id')] = taskList
 
-    resp = requests.get(url)
-    Users = resp.json()
-
-    users_dict = {}
-    for user in Users:
-        USER_ID = user.get('id')
-        USERNAME = user.get('username')
-        url = 'https://jsonplaceholder.typicode.com/users/{}'.format(USER_ID)
-        url = url + '/todos/'
-        resp = requests.get(url)
-
-        tasks = resp.json()
-        users_dict[USER_ID] = []
-        for task in tasks:
-            TASK_COMPLETED_STATUS = task.get('completed')
-            TASK_TITLE = task.get('title')
-            users_dict[USER_ID].append({
-                "task": TASK_TITLE,
-                "completed": TASK_COMPLETED_STATUS,
-                "username": USERNAME
-            })
-            """A little Something"""
-    with open('todo_all_employees.json', 'w') as f:
-        json.dump(users_dict, f)
+    with open('todo_all_employees.json', mode='w') as f:
+        json.dump(todoAll, f)
