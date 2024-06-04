@@ -3,14 +3,14 @@
 script that using this REST API, for a given employee ID,
 returns information about his/her TODO list progress
 """
+
 import re
 import requests
 import sys
 
-base_url = "https://jsonplaceholder.typicode.com"
-
 
 if __name__ == '__main__':
+    base_url = "https://jsonplaceholder.typicode.com"
 
     if len(sys.argv) > 1:
         if re.fullmatch(r'\d+', sys.argv[1]):
@@ -23,7 +23,7 @@ if __name__ == '__main__':
             all_tasks = todos_response.json()
             user_tasks = list(filter(lambda x: x.get('userId') == employee_id,
                               all_tasks))
-            completed_tasks = list(filter(lambda x: x.get('completed'),
+            completed_tasks = list(filter(lambda x: x.get('completed') is True,
                                           user_tasks))
 
             print(
