@@ -35,4 +35,4 @@ if __name__ == '__main__':
                 len(completed), len(todos)))
 
             for complete in completed:
-                print("\t {}".format(complete))
+                print("\t{}".format(complete))
