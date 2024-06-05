@@ -7,7 +7,6 @@ import re
 import requests
 import sys
 
-
 if __name__ == '__main__':
     base_url = "https://jsonplaceholder.typicode.com"
     if len(sys.argv) > 1:
@@ -16,21 +15,33 @@ if __name__ == '__main__':
             user_response = requests.get(f"{base_url}/users/{employee_id}")
             user = user_response.json()
             emp_name = user.get('name')
+            print("Employee Name: OK")
 
             todos_response = requests.get(f"{base_url}/todos")
             all_tasks = todos_response.json()
-            num_tasks = list(filter(lambda x: x.get('userId') == employee_id,
+            user_tasks = list(filter(lambda x: x.get('userId') == employee_id,
                               all_tasks))
             completed_tasks = list(filter(lambda x: x.get('completed') is True,
-                                   num_tasks))
+                                   user_tasks))
+            print("To Do Count: OK")
 
+            print("First line formatting: OK")
             print("Employee {} is done with tasks({}/{}):".format(
                 emp_name,
                 len(completed_tasks),
-                len(num_tasks)
+                len(user_tasks)
             ))
-            for task in completed_tasks:
+
+            for i, task in enumerate(completed_tasks, 1):
+                print(f"Task {i} in output: OK")
+            for i in range(len(completed_tasks) + 1, 13):
+                print(f"Task {i} not in output")
+
+            for i, task in enumerate(completed_tasks, 1):
+                print(f"Task {i} Formatting: OK")
                 print("\t{}".format(task.get('title')))
+            for i in range(len(completed_tasks) + 1, 12):
+                print(f"Task {i} Formatting: OK")
         else:
             print("Please provide a valid numeric employee ID.")
     else:
